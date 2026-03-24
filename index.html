@@ -7,85 +7,45 @@
 <style>
 body{
   margin:0;
-  background:black;
-  color:white;
-  font-family:Arial;
   overflow:hidden;
+  font-family:Arial;
+  color:white;
 }
 
-/* FONDO */
-body::before{
-  content:"";
-  position:absolute;
-  width:200%;
-  height:200%;
-  background:radial-gradient(circle, #111, black);
-  animation:mover 12s linear infinite;
-  filter:blur(40px);
-  z-index:-2;
-  pointer-events:none;
-}
-
-@keyframes mover{
-  0%{transform:translate(0,0);}
-  50%{transform:translate(-20%,-20%);}
-  100%{transform:translate(0,0);}
-}
-
-/* PARTÍCULAS */
-.particles{
-  position:absolute;
-  width:100%;
-  height:100%;
-  z-index:-1;
-  pointer-events:none;
-}
-
-.particles span{
-  position:absolute;
-  width:2px;
-  height:2px;
-  background:white;
-  opacity:0.3;
-  animation:float linear infinite;
-}
-
-@keyframes float{
-  from{transform:translateY(100vh);}
-  to{transform:translateY(-10vh);}
-}
-
-/* INTRO */
-#intro{
+/* FONDO CIELO */
+.sky{
   position:fixed;
   width:100%;
   height:100%;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  background:black;
-  cursor:pointer;
-  z-index:10;
+  background:url('https://images.unsplash.com/photo-1501785888041-af3ef285b470') center/cover;
+  animation:mover 30s linear infinite;
+  z-index:-2;
 }
 
-#intro h1{
-  letter-spacing:6px;
-  animation:parpadeo 1.5s infinite;
+/* MOVIMIENTO SUAVE */
+@keyframes mover{
+  0%{transform:scale(1) translateY(0);}
+  50%{transform:scale(1.1) translateY(-20px);}
+  100%{transform:scale(1) translateY(0);}
 }
 
-@keyframes parpadeo{
-  0%,100%{opacity:1;}
-  50%{opacity:0.3;}
+/* OVERLAY OSCURO */
+.overlay{
+  position:fixed;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.4);
+  z-index:-1;
 }
 
 /* CONTENIDO */
 .container{
-  display:none;
   height:100vh;
   display:flex;
   flex-direction:column;
   justify-content:center;
   align-items:center;
+  text-align:center;
   animation:fadeIn 1s ease;
 }
 
@@ -94,86 +54,83 @@ body::before{
   to{opacity:1; transform:translateY(0);}
 }
 
-.nombre{
-  font-size:26px;
-  margin-bottom:40px;
-  letter-spacing:4px;
-  text-shadow:0 0 15px rgba(255,255,255,0.2);
+/* LOGO */
+.logo{
+  font-size:28px;
+  margin-bottom:30px;
+  letter-spacing:3px;
+  text-shadow:0 0 20px rgba(255,255,255,0.4);
 }
 
-/* BOTONES */
-.btn{
-  width:240px;
-  padding:14px;
-  margin:10px;
+/* TARJETAS */
+.cards{
+  display:flex;
+  gap:20px;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+
+.card{
+  width:180px;
+  padding:20px;
+  border-radius:20px;
+  background:rgba(255,255,255,0.1);
+  backdrop-filter:blur(15px);
+  border:1px solid rgba(255,255,255,0.2);
   text-decoration:none;
   color:white;
-  border-radius:12px;
-  background:rgba(255,255,255,0.05);
-  border:1px solid rgba(255,255,255,0.1);
-  backdrop-filter:blur(10px);
   transition:0.3s;
-  text-align:center;
+  position:relative;
+  overflow:hidden;
 }
 
-.btn:hover{
-  background:rgba(255,255,255,0.1);
-  transform:scale(1.05);
-  box-shadow:0 0 20px rgba(255,255,255,0.2);
+/* BRILLO */
+.card::before{
+  content:"";
+  position:absolute;
+  width:100%;
+  height:100%;
+  top:0;
+  left:-100%;
+  background:linear-gradient(120deg, transparent, rgba(255,255,255,0.4), transparent);
+  transition:0.6s;
+}
+
+.card:hover::before{
+  left:100%;
+}
+
+.card:hover{
+  transform:scale(1.08);
+  box-shadow:0 0 25px rgba(255,255,255,0.3);
+}
+
+/* TEXTO */
+.card h2{
+  margin:0;
+  font-size:18px;
 }
 </style>
 </head>
 
 <body>
 
-<!-- PARTÍCULAS -->
-<div class="particles" id="particles"></div>
+<div class="sky"></div>
+<div class="overlay"></div>
 
-<!-- INTRO -->
-<div id="intro">
-  <h1>CLICK TO ENTER</h1>
+<div class="container">
+  <div class="logo">Anthony</div>
+
+  <div class="cards">
+    <a class="card" href="https://discord.gg/99HWbx9z" target="_blank">
+      <h2>💬 Discord</h2>
+    </a>
+
+    <a class="card" href="https://tiktok.com/@el_patto.1" target="_blank">
+      <h2>🎵 TikTok</h2>
+    </a>
+  </div>
 </div>
-
-<!-- CONTENIDO -->
-<div class="container" id="contenido">
-  <div class="nombre">Anthony</div>
-
-  <a class="btn" href="https://discord.gg/99HWbx9z" target="_blank">Discord</a>
-  <a class="btn" href="https://tiktok.com/@el_patto.1" target="_blank">TikTok</a>
-</div>
-
-<!-- AUDIO (SOLO CAMBIAS EL ARCHIVO) -->
-<audio id="music" loop>
-  <source src="cancion.mp3" type="audio/mpeg">
-</audio>
-
-<script>
-// CLICK PARA ENTRAR
-document.getElementById("intro").addEventListener("click", function(){
-  this.style.opacity="0";
-
-  setTimeout(()=>{
-    this.style.display="none";
-    document.getElementById("contenido").style.display="flex";
-  },400);
-
-  // AUDIO
-  const music = document.getElementById("music");
-  music.volume = 0.6;
-  music.play().catch(()=>{});
-});
-
-// PARTÍCULAS
-const container = document.getElementById("particles");
-
-for(let i=0; i<60; i++){
-  let span = document.createElement("span");
-  span.style.left = Math.random()*100 + "vw";
-  span.style.animationDuration = (5 + Math.random()*5) + "s";
-  span.style.opacity = Math.random();
-  container.appendChild(span);
-}
-</script>
 
 </body>
 </html>
