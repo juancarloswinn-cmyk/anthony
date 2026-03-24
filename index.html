@@ -23,6 +23,7 @@ body{
   align-items:center;
   cursor:pointer;
   z-index:10;
+  transition:opacity 0.4s ease;
 }
 
 #intro h1{
@@ -174,8 +175,14 @@ document.getElementById("intro").addEventListener("click", function(){
   },400);
 
   const video = document.getElementById("video");
+
   video.muted = false;
-  video.play();
+  video.volume = 1;
+  video.currentTime = 0;
+
+  video.play().catch(() => {
+    console.log("Autoplay bloqueado");
+  });
 });
 </script>
 
