@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Anthony</title>
 
 <style>
@@ -94,7 +95,8 @@ body{
 .cards{
   display:grid;
   gap:20px;
-  width:280px;
+  width:90%;
+  max-width:300px;
 }
 
 .card{
@@ -142,7 +144,7 @@ body{
 
 <!-- VIDEO -->
 <div class="video-bg">
-  <video autoplay muted loop id="video">
+  <video autoplay muted loop playsinline id="video">
     <source src="video.mp4" type="video/mp4">
   </video>
 </div>
@@ -178,10 +180,9 @@ document.getElementById("intro").addEventListener("click", function(){
 
   video.muted = false;
   video.volume = 1;
-  video.currentTime = 0;
 
-  video.play().catch(() => {
-    console.log("Autoplay bloqueado");
+  video.play().catch(err => {
+    console.log("Error al reproducir:", err);
   });
 });
 </script>
