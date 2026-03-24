@@ -13,15 +13,46 @@ body{
   overflow:hidden;
 }
 
-/* FONDO CON BLUR */
+/* FONDO */
 body::before{
   content:"";
   position:absolute;
+  width:200%;
+  height:200%;
+  background:radial-gradient(circle, #111, black);
+  animation:mover 12s linear infinite;
+  filter:blur(40px);
+  z-index:-2;
+  pointer-events:none;
+}
+
+@keyframes mover{
+  0%{transform:translate(0,0);}
+  50%{transform:translate(-20%,-20%);}
+  100%{transform:translate(0,0);}
+}
+
+/* PARTÍCULAS */
+.particles{
+  position:absolute;
   width:100%;
   height:100%;
-  background:radial-gradient(circle at center, #111, black);
-  filter:blur(20px);
   z-index:-1;
+  pointer-events:none;
+}
+
+.particles span{
+  position:absolute;
+  width:2px;
+  height:2px;
+  background:white;
+  opacity:0.3;
+  animation:float linear infinite;
+}
+
+@keyframes float{
+  from{transform:translateY(100vh);}
+  to{transform:translateY(-10vh);}
 }
 
 /* INTRO */
@@ -32,23 +63,19 @@ body::before{
   display:flex;
   justify-content:center;
   align-items:center;
-  flex-direction:column;
   background:black;
   cursor:pointer;
   z-index:10;
 }
 
 #intro h1{
-  font-size:18px;
-  letter-spacing:5px;
-  color:white;
-  opacity:0.7;
-  animation:fade 2s infinite;
+  letter-spacing:6px;
+  animation:parpadeo 1.5s infinite;
 }
 
-@keyframes fade{
-  0%,100%{opacity:0.7;}
-  50%{opacity:0.2;}
+@keyframes parpadeo{
+  0%,100%{opacity:1;}
+  50%{opacity:0.3;}
 }
 
 /* CONTENIDO */
@@ -63,24 +90,22 @@ body::before{
 }
 
 @keyframes fadeIn{
-  from{opacity:0; transform:translateY(10px);}
+  from{opacity:0; transform:translateY(20px);}
   to{opacity:1; transform:translateY(0);}
 }
 
-/* NOMBRE */
 .nombre{
-  font-size:24px;
+  font-size:26px;
   margin-bottom:40px;
-  letter-spacing:3px;
-  text-shadow:0 0 10px rgba(255,255,255,0.2);
+  letter-spacing:4px;
+  text-shadow:0 0 15px rgba(255,255,255,0.2);
 }
 
-/* BOTONES GLASS */
+/* BOTONES */
 .btn{
-  width:230px;
+  width:240px;
   padding:14px;
   margin:10px;
-  text-align:center;
   text-decoration:none;
   color:white;
   border-radius:12px;
@@ -88,22 +113,28 @@ body::before{
   border:1px solid rgba(255,255,255,0.1);
   backdrop-filter:blur(10px);
   transition:0.3s;
+  text-align:center;
 }
 
 .btn:hover{
   background:rgba(255,255,255,0.1);
-  transform:scale(1.04);
-  box-shadow:0 0 15px rgba(255,255,255,0.2);
+  transform:scale(1.05);
+  box-shadow:0 0 20px rgba(255,255,255,0.2);
 }
 </style>
 </head>
 
 <body>
 
+<!-- PARTÍCULAS -->
+<div class="particles" id="particles"></div>
+
+<!-- INTRO -->
 <div id="intro">
   <h1>CLICK TO ENTER</h1>
 </div>
 
+<!-- CONTENIDO -->
 <div class="container" id="contenido">
   <div class="nombre">Anthony</div>
 
@@ -111,15 +142,37 @@ body::before{
   <a class="btn" href="https://tiktok.com/@el_patto.1" target="_blank">TikTok</a>
 </div>
 
+<!-- AUDIO (SOLO CAMBIAS EL ARCHIVO) -->
+<audio id="music" loop>
+  <source src="cancion.mp3" type="audio/mpeg">
+</audio>
+
 <script>
+// CLICK PARA ENTRAR
 document.getElementById("intro").addEventListener("click", function(){
   this.style.opacity="0";
 
-  setTimeout(() => {
+  setTimeout(()=>{
     this.style.display="none";
     document.getElementById("contenido").style.display="flex";
-  }, 400);
+  },400);
+
+  // AUDIO
+  const music = document.getElementById("music");
+  music.volume = 0.6;
+  music.play().catch(()=>{});
 });
+
+// PARTÍCULAS
+const container = document.getElementById("particles");
+
+for(let i=0; i<60; i++){
+  let span = document.createElement("span");
+  span.style.left = Math.random()*100 + "vw";
+  span.style.animationDuration = (5 + Math.random()*5) + "s";
+  span.style.opacity = Math.random();
+  container.appendChild(span);
+}
 </script>
 
 </body>
