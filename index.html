@@ -12,29 +12,21 @@ body{
   color:white;
 }
 
-/* FONDO CIELO */
-.sky{
+/* VIDEO DE FONDO */
+video{
   position:fixed;
   width:100%;
   height:100%;
-  background:url('https://images.unsplash.com/photo-1501785888041-af3ef285b470') center/cover;
-  animation:mover 30s linear infinite;
+  object-fit:cover;
   z-index:-2;
 }
 
-/* MOVIMIENTO SUAVE */
-@keyframes mover{
-  0%{transform:scale(1) translateY(0);}
-  50%{transform:scale(1.1) translateY(-20px);}
-  100%{transform:scale(1) translateY(0);}
-}
-
-/* OVERLAY OSCURO */
+/* OSCURECER VIDEO */
 .overlay{
   position:fixed;
   width:100%;
   height:100%;
-  background:rgba(0,0,0,0.4);
+  background:rgba(0,0,0,0.5);
   z-index:-1;
 }
 
@@ -54,24 +46,22 @@ body{
   to{opacity:1; transform:translateY(0);}
 }
 
-/* LOGO */
+/* NOMBRE */
 .logo{
-  font-size:28px;
+  font-size:30px;
   margin-bottom:30px;
   letter-spacing:3px;
-  text-shadow:0 0 20px rgba(255,255,255,0.4);
+  text-shadow:0 0 20px rgba(255,255,255,0.5);
 }
 
 /* TARJETAS */
 .cards{
   display:flex;
   gap:20px;
-  flex-wrap:wrap;
-  justify-content:center;
 }
 
 .card{
-  width:180px;
+  width:200px;
   padding:20px;
   border-radius:20px;
   background:rgba(255,255,255,0.1);
@@ -84,14 +74,14 @@ body{
   overflow:hidden;
 }
 
-/* BRILLO */
+/* EFECTO BRILLO */
 .card::before{
   content:"";
   position:absolute;
   width:100%;
   height:100%;
-  top:0;
   left:-100%;
+  top:0;
   background:linear-gradient(120deg, transparent, rgba(255,255,255,0.4), transparent);
   transition:0.6s;
 }
@@ -104,30 +94,28 @@ body{
   transform:scale(1.08);
   box-shadow:0 0 25px rgba(255,255,255,0.3);
 }
-
-/* TEXTO */
-.card h2{
-  margin:0;
-  font-size:18px;
-}
 </style>
 </head>
 
 <body>
 
-<div class="sky"></div>
+<!-- VIDEO -->
+<video autoplay muted loop>
+  <source src="video.mp4" type="video/mp4">
+</video>
+
 <div class="overlay"></div>
 
 <div class="container">
-  <div class="logo">Anthony</div>
+  <div class="logo">Anthony 😏</div>
 
   <div class="cards">
     <a class="card" href="https://discord.gg/99HWbx9z" target="_blank">
-      <h2>💬 Discord</h2>
+      💬 Discord
     </a>
 
     <a class="card" href="https://tiktok.com/@el_patto.1" target="_blank">
-      <h2>🎵 TikTok</h2>
+      🎵 TikTok
     </a>
   </div>
 </div>
