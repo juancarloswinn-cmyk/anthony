@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Anthony 🔥</title>
+
+<style>
+body {
+  margin: 0;
+  background: black;
+  color: white;
+  font-family: Arial;
+  overflow: hidden;
+}
+
+/* Intro */
+#intro {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 28px;
+  cursor: pointer;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  50% {opacity: 0.5;}
+}
+
+/* Fondo partículas */
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+/* Contenido */
+.container {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  margin-top: 120px;
+  display: none;
+}
+
+h1 {
+  font-size: 42px;
+  text-shadow: 0 0 20px #00ffcc;
+}
+
+p {
+  color: #aaa;
+}
+
+.btn {
+  display: block;
+  margin: 15px auto;
+  padding: 12px;
+  width: 220px;
+  background: #00ffcc;
+  color: black;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: 0.3s;
+  font-weight: bold;
+}
+
+.btn:hover {
+  transform: scale(1.1);
+}
+</style>
+</head>
+
+<body>
+
+<div id="intro">💊 CLICK PARA ENTRAR 💊</div>
+
+<canvas id="bg"></canvas>
+
+<div class="container" id="contenido">
+  <h1>Anthony 😏</h1>
+  <p>Dopamina mode 💊🔥</p>
+
+  <a class="btn" href="https://discord.gg/99HWbx9z">💬 Discord</a>
+  <a class="btn" href="https://tiktok.com/@el_patto.1">🎵 TikTok</a>
+</div>
+
+<audio id="music" loop>
+  <source src="cancion.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+// CLICK FUNCIONANDO 🔥
+const intro = document.getElementById("intro");
+
+intro.addEventListener("click", function() {
+  intro.style.display = "none";
+  document.getElementById("contenido").style.display = "block";
+
+  let audio = document.getElementById("music");
+  audio.play().catch(() => {
+    console.log("Audio bloqueado");
+  });
+});
+
+// partículas
+const canvas = document.getElementById("bg");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles = [];
+
+for (let i = 0; i < 100; i++) {
+  particles.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    size: 2,
+    speedX: Math.random() - 0.5,
+    speedY: Math.random() - 0.5
+  });
+}
+
+function animate() {
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle = "#00ffcc";
+
+  particles.forEach(p => {
+    p.x += p.speedX;
+    p.y += p.speedY;
+
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.size, 0, Math.PI*2);
+    ctx.fill();
+
+    if(p.x < 0 || p.x > canvas.width) p.speedX *= -1;
+    if(p.y < 0 || p.y > canvas.height) p.speedY *= -1;
+  });
+
+  requestAnimationFrame(animate);
+}
+
+animate();
+</script>
+
+</body>
+</html>
