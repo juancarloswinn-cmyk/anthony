@@ -3,22 +3,105 @@
 <head>
 <meta charset="UTF-8">
 <title>Anthony 🔥</title>
+
 <style>
-body{margin:0;background:black;color:white;font-family:Arial;text-align:center}
-#intro{position:fixed;width:100%;height:100%;background:black;display:flex;justify-content:center;align-items:center;font-size:30px;cursor:pointer}
-.container{display:none;margin-top:100px}
-.btn{display:block;margin:15px auto;padding:12px;width:200px;background:#00ffcc;color:black;border-radius:10px;text-decoration:none}
+body{
+  margin:0;
+  background:black;
+  color:white;
+  font-family:Arial;
+  text-align:center;
+  overflow:hidden;
+}
+
+/* INTRO */
+#intro{
+  position:fixed;
+  width:100%;
+  height:100%;
+  background:black;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:30px;
+  cursor:pointer;
+  transition:1s;
+  z-index:10;
+}
+
+/* EFECTO NEON TEXTO */
+#intro span{
+  color:#00ffcc;
+  text-shadow:0 0 10px #00ffcc, 0 0 20px #00ffcc;
+  animation:parpadeo 1.5s infinite;
+}
+
+@keyframes parpadeo{
+  0%,100%{opacity:1;}
+  50%{opacity:0.5;}
+}
+
+/* FONDO ANIMADO */
+body::before{
+  content:"";
+  position:absolute;
+  width:200%;
+  height:200%;
+  background:radial-gradient(circle, #001f1f, black);
+  animation:mover 10s linear infinite;
+  z-index:-1;
+}
+
+@keyframes mover{
+  0%{transform:translate(0,0);}
+  50%{transform:translate(-25%,-25%);}
+  100%{transform:translate(0,0);}
+}
+
+/* CONTENIDO */
+.container{
+  display:none;
+  margin-top:100px;
+  animation:fadeIn 1s ease;
+}
+
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(20px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+/* BOTONES PRO */
+.btn{
+  display:block;
+  margin:15px auto;
+  padding:12px;
+  width:200px;
+  background:transparent;
+  color:#00ffcc;
+  border:2px solid #00ffcc;
+  border-radius:10px;
+  text-decoration:none;
+  transition:0.3s;
+}
+
+.btn:hover{
+  background:#00ffcc;
+  color:black;
+  box-shadow:0 0 15px #00ffcc, 0 0 30px #00ffcc;
+  transform:scale(1.05);
+}
 </style>
 </head>
 
 <body>
 
-<div id="intro">💊 CLICK PARA ENTRAR 💊</div>
+<div id="intro"><span>💊 CLICK PARA ENTRAR 💊</span></div>
 
 <div class="container" id="contenido">
-<h1>Anthony 😏</h1>
-<a class="btn" href="https://discord.gg/99HWbx9z">Discord</a>
-<a class="btn" href="https://tiktok.com/@el_patto.1">TikTok</a>
+  <h1>Anthony 😏🔥</h1>
+
+  <a class="btn" href="https://discord.gg/99HWbx9z" target="_blank">Discord</a>
+  <a class="btn" href="https://tiktok.com/@el_patto.1" target="_blank">TikTok</a>
 </div>
 
 <audio id="music" loop>
@@ -27,9 +110,14 @@ body{margin:0;background:black;color:white;font-family:Arial;text-align:center}
 
 <script>
 document.getElementById("intro").addEventListener("click", function(){
-this.style.display="none";
-document.getElementById("contenido").style.display="block";
-document.getElementById("music").play();
+  this.style.opacity="0";
+
+  setTimeout(() => {
+    this.style.display="none";
+    document.getElementById("contenido").style.display="block";
+  }, 800);
+
+  document.getElementById("music").play().catch(() => {});
 });
 </script>
 
