@@ -7,43 +7,43 @@
 <style>
 body{
   margin:0;
-  overflow:hidden;
-  font-family:Arial;
+  font-family:-apple-system, BlinkMacSystemFont, Arial;
   color:white;
+  overflow:hidden;
 }
 
-/* VIDEO */
+/* VIDEO FONDO */
 .video-bg{
   position:fixed;
   width:100%;
   height:100%;
-  overflow:hidden;
   z-index:-2;
+  overflow:hidden;
 }
 
 .video-bg video{
   width:100%;
   height:100%;
   object-fit:cover;
-  animation:zoom 20s infinite alternate;
+  animation:zoom 25s ease-in-out infinite alternate;
 }
 
-/* ZOOM SUAVE (EFECTO PRO) */
+/* ZOOM SUAVE */
 @keyframes zoom{
   from{transform:scale(1);}
-  to{transform:scale(1.2);}
+  to{transform:scale(1.15);}
 }
 
-/* OSCURECER */
+/* OVERLAY GRADIENTE */
 .overlay{
   position:fixed;
   width:100%;
   height:100%;
-  background:rgba(0,0,0,0.5);
+  background:linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.8));
   z-index:-1;
 }
 
-/* CONTENIDO */
+/* CONTENEDOR */
 .container{
   height:100vh;
   display:flex;
@@ -51,69 +51,62 @@ body{
   justify-content:center;
   align-items:center;
   text-align:center;
-  animation:fadeIn 1.5s ease;
-}
-
-/* ENTRADA */
-@keyframes fadeIn{
-  from{opacity:0; transform:translateY(40px);}
-  to{opacity:1; transform:translateY(0);}
 }
 
 /* LOGO */
 .logo{
-  font-size:32px;
+  font-size:34px;
+  font-weight:600;
   margin-bottom:40px;
-  letter-spacing:4px;
-  text-shadow:0 0 25px rgba(255,255,255,0.6);
-  animation:float 3s ease-in-out infinite;
+  letter-spacing:3px;
+  text-shadow:0 0 30px rgba(255,255,255,0.4);
+  animation:fadeDown 1s ease;
 }
 
-/* EFECTO FLOTAR */
-@keyframes float{
-  0%,100%{transform:translateY(0);}
-  50%{transform:translateY(-10px);}
-}
-
-/* TARJETAS */
-.cards{
-  display:flex;
-  gap:25px;
-}
-
-/* CARD */
-.card{
-  width:220px;
-  padding:20px;
-  border-radius:20px;
-  background:rgba(255,255,255,0.08);
-  backdrop-filter:blur(15px);
-  border:1px solid rgba(255,255,255,0.2);
-  text-decoration:none;
-  color:white;
-  transition:0.3s;
-  position:relative;
-  overflow:hidden;
-  animation:fadeUp 1s ease forwards;
-}
-
-/* ENTRADA CARDS */
-@keyframes fadeUp{
-  from{opacity:0; transform:translateY(50px);}
+@keyframes fadeDown{
+  from{opacity:0; transform:translateY(-40px);}
   to{opacity:1; transform:translateY(0);}
 }
 
-.card:nth-child(1){ animation-delay:0.5s; }
-.card:nth-child(2){ animation-delay:0.8s; }
+/* GRID TARJETAS */
+.cards{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:20px;
+  width:280px;
+}
 
-/* BRILLO */
+/* TARJETAS SHOPIFY */
+.card{
+  padding:18px;
+  border-radius:18px;
+  background:rgba(255,255,255,0.08);
+  backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,0.15);
+  text-decoration:none;
+  color:white;
+  position:relative;
+  overflow:hidden;
+  transition:0.4s;
+  animation:fadeUp 1s ease forwards;
+}
+
+.card:nth-child(1){animation-delay:0.3s;}
+.card:nth-child(2){animation-delay:0.5s;}
+
+@keyframes fadeUp{
+  from{opacity:0; transform:translateY(40px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+/* EFECTO BRILLO */
 .card::before{
   content:"";
   position:absolute;
+  top:0;
+  left:-100%;
   width:100%;
   height:100%;
-  left:-100%;
-  top:0;
   background:linear-gradient(120deg, transparent, rgba(255,255,255,0.4), transparent);
   transition:0.6s;
 }
@@ -122,9 +115,17 @@ body{
   left:100%;
 }
 
+/* HOVER PRO */
 .card:hover{
-  transform:scale(1.1);
-  box-shadow:0 0 30px rgba(255,255,255,0.4);
+  transform:translateY(-5px) scale(1.03);
+  box-shadow:0 10px 40px rgba(0,0,0,0.6);
+}
+
+/* TEXTO */
+.card h2{
+  margin:0;
+  font-size:18px;
+  font-weight:500;
 }
 </style>
 </head>
@@ -145,11 +146,11 @@ body{
 
   <div class="cards">
     <a class="card" href="https://discord.gg/99HWbx9z" target="_blank">
-      💬 Discord
+      <h2>💬 Discord</h2>
     </a>
 
     <a class="card" href="https://tiktok.com/@el_patto.1" target="_blank">
-      🎵 TikTok
+      <h2>🎵 TikTok</h2>
     </a>
   </div>
 </div>
